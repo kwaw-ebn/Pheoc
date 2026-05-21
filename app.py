@@ -1,92 +1,12 @@
-import streamlit as st
-import datetime
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghana Integrated Public Health Emergency Platform (GIPHEP)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700;800&display=swap" rel="stylesheet">
 
-# -----------------------------------------------------------------------------
-# 1. PAGE SETUP & SETUP CONFIGURATION
-# -----------------------------------------------------------------------------
-st.set_page_config(
-    page_title="Ghana Integrated Public Health Emergency Platform (GIPHEP)",
-    page_icon=None,
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
-# -----------------------------------------------------------------------------
-# 2. COMPLETE 16 GHANA REGIONS & DISTRICTS DATA SYSTEM (NO DUMMY DATA)
-# -----------------------------------------------------------------------------
-GHANA_GEOGRAPHY = {
-    "Ahafo": {
-        "capital": "Goaso",
-        "districts": ["Asunafo North Municipal", "Asunafo South", "Asutifi North", "Asutifi South", "Tano North Municipal", "Tano South Municipal"]
-    },
-    "Ashanti": {
-        "capital": "Kumasi",
-        "districts": ["Kumasi Metropolitan", "Atwima Nwabiagya Municipal", "Obuasi Municipal", "Ejisu Municipal", "Asante Akim Central Municipal", "Mampong Municipal", "Bekwai Municipal", "Amansie West", "Afigya Kwabre South", "Offinso North"]
-    },
-    "Bono": {
-        "capital": "Sunyani",
-        "districts": ["Sunyani Municipal", "Berekum East Municipal", "Dormaa Central Municipal", "Wenchi Municipal", "Jaman South Municipal", "Sunyani West Municipal", "Banda", "Tain"]
-    },
-    "Bono East": {
-        "capital": "Techiman",
-        "districts": ["Techiman Municipal", "Kintampo North Municipal", "Nkoranza South Municipal", "Atebubu-Amantin Municipal", "Sene East", "Pru West", "Techiman North"]
-    },
-    "Central": {
-        "capital": "Cape Coast",
-        "districts": ["Cape Coast Metropolitan", "Effutu Municipal", "Awutu Senya East Municipal", "Agona West Municipal", "Mfantsiman Municipal", "Komenda-Edina-Eguafo-Abirem Municipal", "Gomoa Central", "Abura-Asebu-Kwamankese"]
-    },
-    "Eastern": {
-        "capital": "Koforidua",
-        "districts": ["New Juaben South Municipal", "Nsawam Adoagyiri Municipal", "Nkawkaw Municipal", "Lower Manya Krobo Municipal", "Suhum Municipal", "Akuapem South", "West Akim Municipal", "Afram Plains North"]
-    },
-    "Greater Accra": {
-        "capital": "Accra",
-        "districts": ["Accra Metropolitan", "Tema Metropolitan", "Ga South Municipal", "La Nkwantanang-Madina Municipal", "Ledzokuku Municipal", "Adentan Municipal", "Ashaiman Municipal", "Ada East", "Shai Osudoku", "Ablekuma West Municipal"]
-    },
-    "North East": {
-        "capital": "Nalerigu",
-        "districts": ["East Mamprusi Municipal", "West Mamprusi Municipal", "Bunkpurugu Nyankpanduri", "Chereponi", "Mamprugu Moagduri", "Yunyoo-Nasuan"]
-    },
-    "Northern": {
-        "capital": "Tamale",
-        "districts": ["Tamale Metropolitan", "Savelugu Municipal", "Yendi Municipal", "Kumbungu", "Tolon", "Sagnarigu Municipal", "Karaga", "Gushiegu Municipal", "Saboba"]
-    },
-    "Oti": {
-        "capital": "Dambai",
-        "districts": ["Krachi West Municipal", "Nkwanta South Municipal", "Jasikan Municipal", "Kadjebi", "Krachi East Municipal", "Biakoye", "Guan"]
-    },
-    "Savannah": {
-        "capital": "Damongo",
-        "districts": ["West Gonja Municipal", "Bole", "Sawla-Tuna-Kalba", "Salaga North", "East Gonja Municipal", "Central Gonja", "North Gonja"]
-    },
-    "Upper East": {
-        "capital": "Bolgatanga",
-        "districts": ["Bolgatanga Municipal", "Bawku Municipal", "Navrongo Central Municipal", "Paga/Chiana/Kasena Nankana West", "Talensi", "Bongo", "Garubawku Central"]
-    },
-    "Upper West": {
-        "capital": "Wa",
-        "districts": ["Wa Municipal", "Jirapa Municipal", "Lawra Municipal", "Tumu/Sissala East Municipal", "Nadowli-Kaleo", "Lambussie-Karni", "Wa West"]
-    },
-    "Volta": {
-        "capital": "Ho",
-        "districts": ["Ho Municipal", "Hohoe Municipal", "Keta Municipal", "Ketut South Municipal", "South Tongu", "Kpando Municipal", "Anloga", "Akatsi South"]
-    },
-    "Western": {
-        "capital": "Sekondi-Takoradi",
-        "districts": ["Sekondi-Takoradi Metropolitan", "Effia-Kwesimintsim Municipal", "Tarkwa-Nsuaem Municipal", "Ellembelle", "Nzema East Municipal", "Ahanta West Municipal", "Wassa West"]
-    },
-    "Western North": {
-        "capital": "Sefwi Wiawso",
-        "districts": ["Sefwi Wiawso Municipal", "Bibiani-Anhwiaso-Bekwai Municipal", "Bodi", "Juaboso", "Sefwi Akontombra", "Suaman"]
-    }
-}
-
-# -----------------------------------------------------------------------------
-# 3. GIPHEP GLOBAL CORE INLINE CSS INJECTION (ALL EMOJIS REMOVED)
-# -----------------------------------------------------------------------------
-st.markdown("""
     <style>
-        /* Base Palette Variables */
         :root {
             --green: #006B3F;
             --yellow: #FCD116;
@@ -96,340 +16,758 @@ st.markdown("""
             --text: #1f2937;
             --border: #e5e7eb;
         }
-        
-        /* Hide default Streamlit visual headers */
-        #MainMenu {visibility: hidden;}
-        header {visibility: hidden;}
-        footer {visibility: hidden;}
-        
-        /* Flag Ribbon Strip Component */
-        .flag-strip {
-            height: 6px;
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            height: 100vh;
+        }
+
+        .app {
             display: flex;
-            width: 100%;
-            margin-top: -50px;
-            margin-bottom: 20px;
+            height: 100vh;
         }
-        .flag-red { background: #CE1126; flex: 1; }
-        .flag-yellow { background: #FCD116; flex: 1; }
-        .flag-green { background: #006B3F; flex: 1; }
-        
-        /* Custom Table Layout Configuration */
-        .giphep-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-            margin-top: 10px;
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 260px;
+            background: var(--sidebar-dark);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            z-index: 1001;
         }
-        .giphep-table th {
-            text-align: left;
-            padding: 12px 10px;
-            color: #6b7280;
-            border-bottom: 1px solid #e5e7eb;
-            background: #f9fafb;
-            font-weight: 600;
+
+        .sidebar-brand {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .giphep-table td {
-            padding: 12px 10px;
-            border-bottom: 1px solid #f3f4f6;
-        }
-        .section-divider {
-            background: #f1f5f9 !important;
+
+        .sidebar-brand small {
+            color: var(--yellow);
             font-weight: 700;
-            color: #334155;
+            letter-spacing: 0.5px;
             font-size: 11px;
             text-transform: uppercase;
         }
-        
-        /* Badge UI Markers */
+
+        .sidebar-menu {
+            padding: 15px 10px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .sidebar button {
+            width: 100%;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 12px 15px;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.2s;
+            margin-bottom: 2px;
+        }
+
+        .sidebar button:hover,
+        .sidebar button.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            box-shadow: inset 4px 0 0 var(--yellow);
+        }
+
+        /* MAIN AREA */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .flag-strip {
+            height: 6px;
+            display: flex;
+        }
+
+        .flag-red { background: var(--red); flex: 1; }
+        .flag-yellow { background: var(--yellow); flex: 1; }
+        .flag-green { background: var(--green); flex: 1; }
+
+        .topbar {
+            background: #fff;
+            padding: 10px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .topbar-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--green);
+            max-width: 450px;
+            line-height: 1.2;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tabs button {
+            padding: 8px 16px;
+            border: 1px solid #eee;
+            background: #f9fafb;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .tabs button.active {
+            background: var(--green);
+            color: #fff;
+            border-color: var(--green);
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-align: right;
+        }
+
+        /* TICKER */
+        .ticker {
+            background: #fff;
+            padding: 10px 25px;
+            border-bottom: 2px solid var(--red);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        #statusText {
+            font-weight: 600;
+            margin-left: 10px;
+            color: #333;
+            transition: opacity 0.4s ease;
+        }
+
+        /* CONTENT */
+        .content {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .page { display: none; }
+        .page.active { display: block; }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .kpi-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--green);
+        }
+
+        .kpi-card h4 {
+            font-size: 11px;
+            color: #6b7280;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .kpi-card h2 {
+            font-size: 24px;
+            color: #111827;
+            font-weight: 800;
+        }
+
+        .kpi-card .sub-text {
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-head {
+            padding: 15px 20px;
+            background: #f9fafb;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-head h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--green);
+            text-transform: uppercase;
+        }
+
+        .panel-body { padding: 20px; }
+
+        /* TABLES */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 10px;
+            color: #6b7280;
+            border-bottom: 1px solid #eee;
+            background: #fcfcfc;
+        }
+
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #f9f9f9;
+        }
+
         .badge {
             padding: 4px 8px;
             border-radius: 6px;
             font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
-            display: inline-block;
         }
+
         .b-red { background: #fee2e2; color: #b91c1c; }
         .b-orange { background: #ffedd5; color: #c2410c; }
         .b-green { background: #d1fae5; color: #065f46; }
         .b-purple { background: #f3e8ff; color: #6b21a8; }
         .b-slate { background: #f1f5f9; color: #334155; }
-        
-        /* Dynamic Scenario Colors */
+        .b-blue { background: #e0f2fe; color: #0369a1; }
+
+        /* TIMELINE ELEMENTS */
+        .timeline-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .timeline-item {
+            border-left: 2px solid var(--border);
+            padding-left: 15px;
+            position: relative;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+        }
+        .timeline-item.alert-item::before { background: var(--red); }
+        .timeline-item.confirm-item::before { background: var(--yellow); }
+        .timeline-date {
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+        }
+        .timeline-text {
+            font-size: 13px;
+            color: var(--text);
+            margin-top: 2px;
+        }
+
+        /* SCENARIO SHAPES */
         .scen-a { color: #b91c1c; font-weight: 700; }
         .scen-b { color: #c2410c; font-weight: 700; }
         .scen-c { color: #065f46; font-weight: 700; }
+
+        .section-divider {
+            background: #f1f5f9;
+            font-weight: 700;
+            color: #334155;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
     </style>
-    
-    <div class="flag-strip">
-        <div class="flag-red"></div>
-        <div class="flag-yellow"></div>
-        <div class="flag-green"></div>
-    </div>
-""", unsafe_with_html=True)
+</head>
 
-# -----------------------------------------------------------------------------
-# 4. GIPHEP HEADER & LIVE STATS BAR COMPONENT
-# -----------------------------------------------------------------------------
-col_header_left, col_header_right = st.columns([3, 1])
-
-with col_header_left:
-    st.markdown("""
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Coat_of_arms_of_Ghana.svg/1280px-Coat_of_arms_of_Ghana.svg.png" width="55">
-            <div>
-                <h1 style="color: #006B3F; font-size: 24px; font-weight: 800; margin: 0; padding: 0;">Ghana Integrated Public Health Emergency Platform (GIPHEP)</h1>
-                <p style="color: #64748b; font-size: 12px; margin: 2px 0 0 0; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Powered by Ghana National Public Health Emergency Operations Centre (PHEOC)</p>
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <small><h4 style="text-transform: none;">Powered by Ghana PHEOC</h4> </small>
             </div>
-        </div>
-    """, unsafe_with_html=True)
-
-with col_header_right:
-    current_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    st.markdown(f"""
-        <div style="text-align: right;">
-            <p style="color: #64748b; font-size: 11px; margin: 0;">System Synchronization Status</p>
-            <strong style="font-size: 14px; color: #1f2937;">{current_time}</strong>
-            <div style="margin-top: 5px;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpuQVNB3Y2X4GTxYETRwhMrTLqRJX3Iz7BeQ&s" width="45"></div>
-        </div>
-    """, unsafe_with_html=True)
-
-# Live Status Banner
-st.markdown("""
-    <div style="background: #fff; padding: 10px 15px; border-left: 4px solid #CE1126; border-bottom: 1px solid #e5e7eb; margin-top: 15px; margin-bottom: 20px; font-size: 14px;">
-        <strong style="color: #CE1126;">Current Warning Track:</strong> 
-        <span style="font-weight: 600; color: #1f2937;">PHEIC Declared - International Bundibugyo Virus Disease (BDBV) Outbreak / Active Cholera Countermeasures Framework</span>
-    </div>
-""", unsafe_with_html=True)
-
-# -----------------------------------------------------------------------------
-# 5. SIDEBAR NAVIGATION CONTROLS (PILLARS)
-# -----------------------------------------------------------------------------
-st.sidebar.markdown("""
-    <div style="text-align: center; margin-bottom: 20px;">
-        <h3 style="color: #FCD116; font-size: 16px; font-weight: 800; margin: 0;">GIPHEP COMMAND ENGINE</h3>
-        <p style="color: #ffffff; font-size: 11px; opacity: 0.8; margin: 2px 0;">Strategic Core Navigation</p>
-    </div>
-""", unsafe_with_html=True)
-
-app_mode = st.sidebar.radio(
-    "Operational Pillars",
-    [
-        "Dashboard Overview", 
-        "Alerts & Triage Center", 
-        "Surveillance Systems", 
-        "Point of Entry (PoE)", 
-        "Laboratory Reference Matrix", 
-        "Case Management", 
-        "Infection Prevention Control (IPC)", 
-        "Risk Communications (RCCE)", 
-        "Supply Chain & Logistics", 
-        "Partner Coordination Framework"
-    ]
-)
-
-# -----------------------------------------------------------------------------
-# 6. PRIMARY VIEW GENERATOR: DASHBOARD OVERVIEW
-# -----------------------------------------------------------------------------
-if app_mode == "Dashboard Overview":
-    
-    # Structural Context View Tabs
-    tab_overview, tab_regional_matrix, tab_district_explorer = st.tabs([
-        "National Overview & Scenario Tracking", 
-        "International & Transit Risk Stratification", 
-        "Ghana 16-Region District Explorer"
-    ])
-    
-    # ----------------------------------------------------
-    # TAB 1: GENERAL EPIDEMIOLOGICAL DATA METRICS
-    # ----------------------------------------------------
-    with tab_overview:
-        st.markdown("<h3 style='color:#006B3F; font-size:16px; margin-bottom:15px; font-weight:700;'>EPIDEMIOLOGICAL RECOGNITION COUNTERS (8_MONTH OUTBREAK METRICS)</h3>", unsafe_with_html=True)
-        
-        # Row 1: KPI Blocks
-        kpi_cols = st.columns(8)
-        metrics = [
-            ("Suspected Cases", "536", "+290 in 4 days", "#FCD116"),
-            ("Probable Cases", "105", "Current Cluster", "#8e44ad"),
-            ("Confirmed Cases", "34", "+26 in 48h PCR", "#CE1126"),
-            ("Deaths (All)", "134", "+54 in 4 days", "#2c3e50"),
-            ("Crude CFR", "19.8%", "Est. Max 50%", "#e67e22"),
-            ("HCW Deaths", ">=4", "Mongbwalu Cluster", "#CE1126"),
-            ("Doubling Time", "3.6d", "Suspect Curve", "#1abc9c"),
-            ("Estimated Re", "2.2-2.8", "Uncontrolled Stage", "#3498db")
-        ]
-        
-        for idx, (title, val, delta, color) in enumerate(metrics):
-            with kpi_cols[idx]:
-                st.markdown(f"""
-                    <div style="background: #fff; padding: 15px 10px; border-radius: 8px; border-left: 4px solid {color}; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-                        <p style="margin: 0; font-size: 11px; color: #6b7280; text-transform: uppercase; font-weight:600;">{title}</p>
-                        <h2 style="margin: 5px 0 2px 0; font-size: 22px; font-weight: 800; color: #111827;">{val}</h2>
-                        <span style="font-size: 11px; color: #6b7280; display: block;">{delta}</span>
-                    </div>
-                """, unsafe_with_html=True)
-
-        # Row 2: Scenario Matrices & Incident Tracking
-        st.markdown("<br>", unsafe_with_html=True)
-        col_left_panel, col_right_panel = st.columns([1.2, 1])
-        
-        with col_left_panel:
-            st.markdown("<h4 style='color:#006B3F; font-size:14px; font-weight:700; margin-bottom:10px;'>SCENARIO PROJECTIONS - SUSPECTED MEDICAL CASE OUTCOMES FROM BASELINE</h4>", unsafe_with_html=True)
-            
-            scen_table_html = """
-            <table class="giphep-table">
-                <thead>
-                    <tr>
-                        <th>Interval Days</th>
-                        <th>Timeline Date Context</th>
-                        <th>Scenario A (No Control Measures)</th>
-                        <th>Scenario B (Partial Control Interventions)</th>
-                        <th>Scenario C (Effective Control Deployment)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>Day 0</td><td>19 May Baseline Status</td><td class="scen-a">536</td><td class="scen-b">536</td><td class="scen-c">536</td></tr>
-                    <tr><td>Day 7</td><td>26 May Tracking window</td><td class="scen-a">~1,997</td><td class="scen-b">~797</td><td class="scen-c">~593</td></tr>
-                    <tr><td>Day 14</td><td>02 June Tracking window</td><td class="scen-a">~7,441</td><td class="scen-b">~1,185</td><td class="scen-c">~657</td></tr>
-                    <tr><td>Day 21</td><td>09 June Tracking window</td><td class="scen-a">~27,700</td><td class="scen-b">~1,762</td><td class="scen-c">~728</td></tr>
-                    <tr><td>Day 30</td><td>18 June Tracking window</td><td class="scen-a">~163,000</td><td class="scen-b">~3,109</td><td class="scen-c">~839</td></tr>
-                    <tr><td>Day 42</td><td>01 July Forecast Window</td><td class="scen-a">~1,900,000</td><td class="scen-b">~6,570</td><td class="scen-c">~1,014</td></tr>
-                </tbody>
-            </table>
-            """
-            st.markdown(scen_table_html, unsafe_with_html=True)
-            
-        with col_right_panel:
-            st.markdown("<h4 style='color:#006B3F; font-size:14px; font-weight:700; margin-bottom:10px;'>RESPONSE GAP ANALYSIS INCIDENT DASHBOARD</h4>", unsafe_with_html=True)
-            
-            gap_table_html = """
-            <table class="giphep-table">
-                <thead>
-                    <tr>
-                        <th>Strategic Response Pillar</th>
-                        <th>Elements in Place</th>
-                        <th>Detected Critical Gaps</th>
-                        <th>Operational Operational Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>Coordination Setups</td><td>4 Elements</td><td>1 Gap Element</td><td><span class="badge b-orange">Partial</span></td></tr>
-                    <tr><td>Surveillance & Lab Tracking</td><td>2 Elements</td><td>3 Gap Elements</td><td><span class="badge b-orange">Partial</span></td></tr>
-                    <tr><td>IPC Active Countermeasures</td><td>0 Elements</td><td>7 Gap Elements</td><td><span class="badge b-red">Critical Gaps</span></td></tr>
-                    <tr><td>Case Management Modules</td><td>0 Elements</td><td>4 Gap Elements</td><td><span class="badge b-red">Critical Gaps</span></td></tr>
-                    <tr><td>Contact Tracing Core</td><td>0 Elements</td><td>5 Gap Elements</td><td><span class="badge b-red">Collapsed Status</span></td></tr>
-                    <tr><td>Border Health Systems (PoE)</td><td>0 Elements</td><td>2 Gap Elements</td><td><span class="badge b-orange">Partial</span></td></tr>
-                    <tr class="section-divider">
-                        <td>Total System Infrastructure (64 Elements)</td>
-                        <td>8 Elements (12.5%)</td>
-                        <td>34 Elements (53.1%)</td>
-                        <td><span class="badge b-red">Major Gaps</span></td>
-                    </tr>
-                </tbody>
-            </table>
-            """
-            st.markdown(gap_table_html, unsafe_with_html=True)
-
-        # Operational Directives Box Block
-        st.markdown("<br><h4 style='color:#006B3F; font-size:14px; font-weight:700;'>STRATEGIC INTERVENTION FRAMEWORKS (NEXT 48-72 HOURS)</h4>", unsafe_with_html=True)
-        st.markdown("""
-            <div style="background: #fff5f5; border-left: 4px solid #CE1126; padding: 12px; font-size: 13px; margin-bottom: 8px; color: #1f2937;">
-                <strong>CRITICAL CRISIS INTERVENTION DIRECTION:</strong> Immediately scale up contact tracking fields to minimum target index of >=5 registered contacts per confirmed viral lineage using Go.Data framework parameters. Deploy field molecular lab infrastructures to regional centers to offset processing lag metrics.
+            <div class="sidebar-menu">
+                <button onclick="showPage('dashboard')" class="active">Dashboard</button>
+                <button onclick="showPage('alerts')">Alerts</button>
+                <button onclick="showPage('surveillance')">Surveillance</button>
+                <button onclick="showPage('poe')">Point of Entry</button>
+                <button onclick="showPage('lab')">Laboratory</button>
+                <button onclick="showPage('case')">Case Management</button>
+                <button onclick="showPage('ambulance')">IPC</button>
+                <button onclick="showPage('risk')">RCCE</button>
+                <button onclick="showPage('supply')">Supply Chain &amp; Logistics</button>
+                <button onclick="showPage('partners')">Coordination</button>
             </div>
-            <div style="background: #f0fdf4; border-left: 4px solid #006B3F; padding: 12px; font-size: 13px; color: #1f2937;">
-                <strong>GHANA PORT SURVEILLANCE DIRECTIVE:</strong> Enforce mandatory physical electronic passenger health logging validations at Kotoka International Airport (KIA) for arrivals tracking from referenced regional flight lines.
+        </aside>
+
+        <div class="main">
+            <div class="flag-strip">
+                <div class="flag-red"></div>
+                <div class="flag-yellow"></div>
+                <div class="flag-green"></div>
             </div>
-        """, unsafe_with_html=True)
+            
+            <header class="topbar">
+                <div class="topbar-left">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Coat_of_arms_of_Ghana.svg/1280px-Coat_of_arms_of_Ghana.svg.png" width="50" alt="Coat of Arms of Ghana">
+                    <h2 class="topbar-title">Ghana Integrated Public Health Emergency Platform (GIPHEP)</h2>
+                </div>
 
-    # ----------------------------------------------------
-    # TAB 2: REGIONAL RISK STRATIFICATION MATRIX
-    # ----------------------------------------------------
-    with tab_regional_matrix:
-        st.markdown("<h3 style='color:#006B3F; font-size:16px; margin-bottom:5px; font-weight:700;'>REGIONAL RISK MATRIX - TRANSIT CORRIDORS STRATIFICATION</h3>", unsafe_with_html=True)
-        st.markdown("<p style='font-size:12px; color:#6b7280; margin-bottom:15px;'>West Africa Risk Index Focus: Aviation vector pathways. Baseline stocks of rVSV-ZEBOV do not provide resistance against BDBV profiles.</p>", unsafe_with_html=True)
-        
-        regional_matrix_html = """
-        <table class="giphep-table">
-            <thead>
-                <tr>
-                    <th>Country Area Entity</th>
-                    <th>Risk Stratification Level</th>
-                    <th>Primary Vector / Exposure Route</th>
-                    <th>Response Architecture Capacity</th>
-                    <th>Immediate Action Guidelines</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="section-divider"><td colspan="5">East and Central Africa - Border Impact Interface Zones</td></tr>
-                <tr><td><strong>Uganda</strong> (Kampala / Western)</td><td><span class="badge b-red">Critical</span></td><td>2 confirmed unlinked importations in urban center; overland via Ituri routes</td><td>High experience; mobile laboratory components deployed</td><td>Trace contacts; scale border checks</td></tr>
-                <tr><td><strong>South Sudan</strong> (Juba)</td><td><span class="badge b-red">Very High</span></td><td>Land routes via Ituri; 700K population displacement tracking context</td><td>Extremely resource-constrained environment</td><td>WHO asset staging; deploy basic PPE blocks</td></tr>
-                <tr><td><strong>Rwanda</strong></td><td><span class="badge b-orange">High</span></td><td>Goma-Gisenyi marketplace networks; high logistics hub volume</td><td>Strong healthcare core background markers</td><td>Validate laboratory PCR primer sequences</td></tr>
-                
-                <tr class="section-divider"><td colspan="5">West Africa Flight Hub Vector Tracking - Aviation Context</td></tr>
-                <tr><td><strong>Ghana</strong> (Accra Context)</td><td><span class="badge b-orange">Low-Moderate</span></td><td>Entebbe-Addis-Accra connections; deployment rotation vectors</td><td>MoH-GHS collaborative network; Noguchi (NMIMR) and KCCR reference systems; active historical monitoring framework</td><td>Heighten KIA entry logs; alert isolation bays at GIDC, Korle-Bu, and UGMC; review clinical diagnostic protocols</td></tr>
-                <tr><td><strong>Nigeria</strong> (Lagos / Abuja)</td><td><span class="badge b-orange">Low-Moderate</span></td><td>Lagos MMIA airport networks; Kinshasa routing lines</td><td>NCDC active network engine; functioning isolation hubs</td><td>Trigger airport surveillance matrix logs</td></tr>
-                <tr><td><strong>Togo</strong> (Lome Hub)</td><td><span class="badge b-slate">Low</span></td><td>ASKY airline transit framework infrastructure nodes</td><td>Moderate diagnostic capacity</td><td>Alert transit air crews to manifest screens</td></tr>
-            </tbody>
-        </table>
-        """
-        st.markdown(regional_matrix_html, unsafe_with_html=True)
+                <nav class="tabs">
+                    <button class="active" onclick="showPage('dashboard')">Overview</button>
+                    <button onclick="showPage('global')">Global Event</button>
+                    <button onclick="showPage('events')">National Event</button>
+                    <button onclick="showPage('regions')">Region</button>
+                    <button onclick="showPage('districts')">District</button>
+                    <button onclick="showPage('ims')">IMS</button>
+                </nav>
 
-    # ----------------------------------------------------
-    # TAB 3: GHANA 16-REGION DISTRICT EXPLORER SYSTEM
-    # ----------------------------------------------------
-    with tab_district_explorer:
-        st.markdown("<h3 style='color:#006B3F; font-size:16px; margin-bottom:10px; font-weight:700;'>NATIONAL HIERARCHICAL INCIDENT SYSTEM</h3>", unsafe_with_html=True)
-        st.markdown("<p style='font-size:13px; color:#4b5563;'>Select from Ghana's 16 administrative regions to view the corresponding regional capital and districts assigned to local public health surveillance reporting units.</p>", unsafe_with_html=True)
-        
-        # Region Picker Dropdown (Strictly 16 Regions)
-        region_list = list(GHANA_GEOGRAPHY.keys())
-        selected_reg = st.selectbox("Public Health Surveillance Region", region_list)
-        
-        if selected_reg:
-            capital_city = GHANA_GEOGRAPHY[selected_reg]["capital"]
-            district_array = GHANA_GEOGRAPHY[selected_reg]["districts"]
-            total_districts = len(district_array)
-            
-            # Regional Data Cards
-            col_reg1, col_reg2 = st.columns(2)
-            with col_reg1:
-                st.markdown(f"""
-                    <div style="background:#f9fafb; padding:15px; border-radius:6px; border-left:4px solid #006B3F;">
-                        <span style="font-size:11px; color:#6b7280; text-transform:uppercase; font-weight:600;">Designated Administrative Center</span>
-                        <h4 style="margin:5px 0 0 0; color:#006B3F; font-size:18px; font-weight:700;">{capital_city}</h4>
+                <div class="topbar-right">
+                    <div>
+                        <small style="color:#64748b;">Last updated</small><br>
+                        <strong id="time" style="font-size:13px;">19/05/2026 15:02:06</strong>
                     </div>
-                """, unsafe_with_html=True)
-            with col_reg2:
-                st.markdown(f"""
-                    <div style="background:#f9fafb; padding:15px; border-radius:6px; border-left:4px solid #FCD116;">
-                        <span style="font-size:11px; color:#6b7280; text-transform:uppercase; font-weight:600;">Active Reporting Surveillance Districts</span>
-                        <h4 style="margin:5px 0 0 0; color:#1f2937; font-size:18px; font-weight:700;">{total_districts} Districts Registered</h4>
-                    </div>
-                """, unsafe_with_html=True)
-            
-            st.markdown("<br><h4 style='font-size:13px; color:#006B3F; font-weight:700;'>REGISTERED DISTRICT ASSEMBLY REPORTING HOTLINES</h4>", unsafe_with_html=True)
-            
-            # Format Districts in columns
-            dist_cols = st.columns(3)
-            for i, d_name in enumerate(district_array):
-                target_col = dist_cols[i % 3]
-                with target_col:
-                    st.markdown(f"""
-                        <div style="background:#fff; padding:10px; margin-bottom:6px; border:1px solid #e5e7eb; border-radius:4px; font-size:12px; color:#374151;">
-                            <strong>{d_name}</strong><br>
-                            <span style="font-size:10px; color:#9ca3af;">Status Line: Functional Tracking</span>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpuQVNB3Y2X4GTxYETRwhMrTLqRJX3Iz7BeQ&s" width="50" alt="Ghana Health Service Logo">
+                </div>
+            </header>
+
+            <div class="ticker">
+                <strong style="color:var(--red)">Current Status:</strong>
+                <span id="statusText">PHEIC Declared: Bundibugyo Virus Disease (BDBV) Outbreak</span>
+            </div>
+
+            <div class="content">
+                <div id="dashboard" class="page active">
+                    
+                    <div class="kpi-grid">
+                        <div class="kpi-card" style="border-left-color: var(--yellow)">
+                            <h4>Suspected Cases</h4>
+                            <h2>536</h2>
+                            <div class="sub-text">▲ +290 in 4 days</div>
                         </div>
-                    """, unsafe_with_html=True)
+                        <div class="kpi-card" style="border-left-color: #8e44ad">
+                            <h4>Probable Cases</h4>
+                            <h2>105</h2>
+                            <div class="sub-text">As of 19 May 2026</div>
+                        </div>
+                        <div class="kpi-card" style="border-left-color: var(--red)">
+                            <h4>Confirmed Cases</h4>
+                            <h2>34</h2>
+                            <div class="sub-text">▲ +26 in 48h lab PCR</div>
+                        </div>
+                        <div class="kpi-card" style="border-left-color: #2c3e50">
+                            <h4>Deaths (All)</h4>
+                            <h2>134</h2>
+                            <div class="sub-text">▲ +54 in 4 days</div>
+                        </div>
+                        <div class="kpi-card" style="border-left-color: #e67e22">
+                            <h4>Crude CFR</h4>
+                            <h2>19.8%</h2>
+                            <div class="sub-text">Confirmed est. 30-50%</div>
+                        </div>
+                        <div class="kpi-card" style="border-left-color: var(--red)">
+                            <h4>HCW Deaths</h4>
+                            <h2>≥4</h2>
+                            <div class="sub-text">Mongbwalu GRH cluster</div>
+                        </div>
+                        <div class="kpi-card" style="border-left-color: #1abc9c">
+                            <h4>Doubling Time</h4>
+                            <h2>3.6d</h2>
+                            <div class="sub-text">From suspect trends</div>
+                        </div>
+                        <div class="kpi-card" style="border-left-color: #3498db">
+                            <h4>Estimated Re</h4>
+                            <h2>2.2–2.8</h2>
+                            <div class="sub-text">Uncontrolled phase</div>
+                        </div>
+                    </div>
 
-# -----------------------------------------------------------------------------
-# 7. SECONDARY SUB-PAGE CORE MODULE STUBS (ALL EMOJIS STRIPPED)
-# -----------------------------------------------------------------------------
-else:
-    st.markdown(f"<h2 style='color:#006B3F; font-size:20px; font-weight:700;'>{app_mode}</h2>", unsafe_with_html=True)
-    st.markdown("""
-        <div style="background:#fff; padding:30px; border-radius:8px; border:1px solid #e5e7eb; color:#4b5563; font-size:14px;">
-            Integration Panel Status: Operational Network Standby.<br>
-            All platform endpoints for this module are configured to handle live medical telemetry directly from the regional reporting nodes.
+                    <div class="main-grid" style="grid-template-columns: 1fr;">
+                        <div class="panel">
+                            <div class="panel-head"><h3>Regional Risk Stratification — East, Central &amp; West Africa Corridor</h3></div>
+                            <div class="panel-body" style="overflow-x: auto;">
+                                <div style="font-size:12px; color:#64748b; margin-bottom:12px;">
+                                    West Africa pathway: Air importation only. Primary routes: Entebbe/Kampala to West African Hubs via Addis Ababa or Nairobi. Note: Prior rVSV-ZEBOV stock does NOT protect against BDBV.
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Country / Area</th>
+                                            <th>Risk Level</th>
+                                            <th>Primary Exposure Pathway</th>
+                                            <th>Response Capacity</th>
+                                            <th>Priority Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="section-divider"><td colspan="5">East &amp; Central Africa — Direct Land Border Corridor</td></tr>
+                                        <tr>
+                                            <td><strong>Uganda</strong> (Kampala + Western)</td>
+                                            <td><span class="badge b-red">Critical</span></td>
+                                            <td>2 confirmed unlinked imported cases in Kampala; overland from Ituri</td>
+                                            <td>Strong EVD experience; mobile lab deployed</td>
+                                            <td>Expand contact tracing; PoE screening; cross-border tracking</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>South Sudan</strong> (W. Equatoria, Juba)</td>
+                                            <td><span class="badge b-red">Very High</span></td>
+                                            <td>Land border Ituri-SS; ~700K DRC refugees; Arua crossings</td>
+                                            <td>Very weak; among lowest IHR scores in AFRO region</td>
+                                            <td>Immediate WHO engagement; pre-position PPE; PoE activations</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Rwanda</strong></td>
+                                            <td><span class="badge b-orange">High</span></td>
+                                            <td>Goma-Gisenyi corridor; high-volume trade; Kigali aviation hub</td>
+                                            <td>Best health system in region; strong EVD baseline</td>
+                                            <td>Confirm BDBV PCR capacity; maintain Goma PoE metrics</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Burundi</strong> (Bujumbura)</td>
+                                            <td><span class="badge b-orange">High</span></td>
+                                            <td>South Kivu corridor; Lake Tanganyika crossings; refugee tracking</td>
+                                            <td>Moderate-limited; capacity constrained</td>
+                                            <td>Activate zero-reporting protocols; alert urban facilities</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Central African Republic</strong></td>
+                                            <td><span class="badge b-orange">High</span></td>
+                                            <td>Northern DRC border (Mbomou-Ituri); mining corridor crossings</td>
+                                            <td>Very fragile; MINUSCA infrastructure fallback support</td>
+                                            <td>Alert MINUSCA networks; activate border surveillance systems</td>
+                                        </tr>
+                                        
+                                        <tr class="section-divider"><td colspan="5">West Africa Aviation Context — Air Importation Corridor Focus</td></tr>
+                                        <tr>
+                                            <td><strong>Ghana</strong> (Accra) - Focus Context</td>
+                                            <td><span class="badge b-orange">Low-Moderate</span></td>
+                                            <td>Daily Entebbe-Addis-Accra flights; peacekeepers/UN staff deployments</td>
+                                            <td>Good; MoH-GHS and partners unified ("Ghana CDC"); NMIMR, KCCR reference labs P3 diagnostic setups; 2014-16 response institutional memory</td>
+                                            <td>Heighten KIA Port Health screening; alert GIDC, Korle-Bu &amp; UGMC containment units; brief teams on BDBV clinical protocols</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Nigeria</strong> (Lagos / Abuja)</td>
+                                            <td><span class="badge b-orange">Low-Moderate</span></td>
+                                            <td>Lagos MMIA hub; direct DRC connections; diaspora networks in Kinshasa</td>
+                                            <td>Strong; NCDC containment track (2014); functional Port Health</td>
+                                            <td>Activate MMIA port health surveillance; brief urban apex hospitals</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Côte d'Ivoire</strong> (Abidjan)</td>
+                                            <td><span class="badge b-orange">Low-Moderate</span></td>
+                                            <td>FHB Airport hub; Brussels Airlines routing; Francophone travel lines</td>
+                                            <td>Moderate; Institut Pasteur diagnostic capacity; prior EVD memory</td>
+                                            <td>Activate FHB airport desk; brief Pasteur teams on BDBV profile</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Guinea</strong> (Conakry)</td>
+                                            <td><span class="badge b-orange">Low-Moderate</span></td>
+                                            <td>Regional networks; transit hubs; citizens in DRC mining sites</td>
+                                            <td>Fragile but strong response memory (2013-21); MSF embedded</td>
+                                            <td>Differentiate BDBV from Zaire strains; do not deploy Ervebo vaccine</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Senegal</strong> (Dakar)</td>
+                                            <td><span class="badge b-green">Low</span></td>
+                                            <td>AIBD hub; Ethiopian Airlines connectivity; UN/NGO staff routes</td>
+                                            <td>Good; SAMU response; Institut Pasteur Dakar validation capacity</td>
+                                            <td>Maintain passive surveillance; brief reference labs on BDBV PCR</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Togo</strong> (Lomé)</td>
+                                            <td><span class="badge b-green">Low</span></td>
+                                            <td>ASKY Airlines regional transit hub framework</td>
+                                            <td>Moderate; airline transit context poses high node risk</td>
+                                            <td>Activate Lomé airport desk; brief flight crew protocols</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Liberia</strong> &amp; <strong>Sierra Leone</strong></td>
+                                            <td><span class="badge b-purple">Low Exp/High Vuln</span></td>
+                                            <td>Extremely limited direct network air routes from epicentre</td>
+                                            <td>Very fragile; severely weakened systems; low safety buffer</td>
+                                            <td>Pre-position rapid response tools; ensure basic PCR access lines</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="main-grid">
+                        <div class="panel">
+                            <div class="panel-head"><h3>Active Hazard Tracking Log</h3></div>
+                            <div class="panel-body">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Hazard Event</th>
+                                            <th>Primary Location Focus</th>
+                                            <th>Status Line</th>
+                                            <th>Severity Scale</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Bundibugyo Virus Disease (BDBV)</strong></td>
+                                            <td>DRC Ituri (Mongbwalu/Rwampara) &amp; Uganda (Kampala)</td>
+                                            <td><span class="badge b-red">Uncontrolled Phase</span></td>
+                                            <td><span class="badge b-red">Critical - PHEIC</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Cholera Outbreak</strong></td>
+                                            <td>Greater Accra Region</td>
+                                            <td><span class="badge b-orange">Ongoing Response</span></td>
+                                            <td><span class="badge b-red">High Risk</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Meningitis Incidents</strong></td>
+                                            <td>Upper West / Northern Regions</td>
+                                            <td><span class="badge b-green">Contained</span></td>
+                                            <td><span class="badge b-orange">Medium Risk</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel-head"><h3>Outbreak Event Timeline</h3></div>
+                            <div class="panel-body">
+                                <div class="timeline-list">
+                                    <div class="timeline-item">
+                                        <div class="timeline-date">24 April 2026</div>
+                                        <div class="timeline-text">Index case (HCW, Bunia) onset recorded with fever and haemorrhage.</div>
+                                    </div>
+                                    <div class="timeline-item alert-item">
+                                        <div class="timeline-date">24–28 April 2026</div>
+                                        <div class="timeline-text">4 healthcare workers die within 4 days at Mongbwalu GRH.</div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-date">5 May 2026</div>
+                                        <div class="timeline-text">WHO alerted to high-mortality unknown clusters in Mongbwalu HZ.</div>
+                                    </div>
+                                    <div class="timeline-item confirm-item">
+                                        <div class="timeline-date">15 May 2026</div>
+                                        <div class="timeline-text">INRB confirms Bundibugyo virus by PCR. Uganda confirms imported death.</div>
+                                    </div>
+                                    <div class="timeline-item alert-item">
+                                        <div class="timeline-date">16 May 2026</div>
+                                        <div class="timeline-text">WHO Director-General declares PHEIC under IHR (2005) regulations.</div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-date">19 May 2026</div>
+                                        <div class="timeline-text">Suspected cases rise to 536 with 134 deaths; doubling time at 3.6 days.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="main-grid">
+                        <div class="panel">
+                            <div class="panel-head"><h3>Scenario Projections — Suspected Case Metrics From Baseline</h3></div>
+                            <div class="panel-body">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Days</th>
+                                            <th>Timeline Date</th>
+                                            <th>Scenario A (No Control)</th>
+                                            <th>Scenario B (Partial Control)</th>
+                                            <th>Scenario C (Effective Control)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>Day 0</td><td>19 May Baseline</td><td class="scen-a">536</td><td class="scen-b">536</td><td class="scen-c">536</td></tr>
+                                        <tr><td>Day 7</td><td>26 May Tracking</td><td class="scen-a">~1,997</td><td class="scen-b">~797</td><td class="scen-c">~593</td></tr>
+                                        <tr><td>Day 14</td><td>02 Jun Tracking</td><td class="scen-a">~7,441</td><td class="scen-b">~1,185</td><td class="scen-c">~657</td></tr>
+                                        <tr><td>Day 21</td><td>09 Jun Tracking</td><td class="scen-a">~27,700</td><td class="scen-b">~1,762</td><td class="scen-c">~728</td></tr>
+                                        <tr><td>Day 30</td><td>18 Jun Tracking</td><td class="scen-a">~163,000</td><td class="scen-b">~3,109</td><td class="scen-c">~839</td></tr>
+                                        <tr><td>Day 42</td><td>01 Jul Projections</td><td class="scen-a">~1,900,000</td><td class="scen-b">~6,570</td><td class="scen-c">~1,014</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel-head"><h3>Response Gap Analysis Dashboard Matrix</h3></div>
+                            <div class="panel-body">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Response Pillar</th>
+                                            <th>In Place</th>
+                                            <th>Gap Check</th>
+                                            <th>Operational Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>Coordination Setups</td><td>4 Elements</td><td>1 Gap Element</td><td><span class="badge b-orange">Partial</span></td></tr>
+                                        <tr><td>Surveillance &amp; Lab</td><td>2 Elements</td><td>3 Gap Elements</td><td><span class="badge b-orange">Partial</span></td></tr>
+                                        <tr><td>IPC Countermeasures</td><td>0 Elements</td><td>7 Gap Elements</td><td><span class="badge b-red">Critical Gaps</span></td></tr>
+                                        <tr><td>Case Management</td><td>0 Elements</td><td>4 Gap Elements</td><td><span class="badge b-red">Critical Gaps</span></td></tr>
+                                        <tr><td>Contact Tracing System</td><td>0 Elements</td><td>5 Gap Elements</td><td><span class="badge b-red">Collapsed Status</span></td></tr>
+                                        <tr><td>Border Health &amp; PoE</td><td>0 Elements</td><td>2 Gap Elements</td><td><span class="badge b-orange">Partial</span></td></tr>
+                                        <tr style="background:#f8fafc; font-weight:700;">
+                                            <td>Total (64 Elements)</td>
+                                            <td>8 (12.5%)</td>
+                                            <td>34 (53.1%)</td>
+                                            <td><span class="badge b-red">Major Gaps</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="main-grid" style="grid-template-columns: 1fr;">
+                        <div class="panel">
+                            <div class="panel-head"><h3>Decision Support &amp; Immediate Operational Priorities (Next 48–72 Hours)</h3></div>
+                            <div class="panel-body">
+                                <div style="border-left: 4px solid var(--red); background: #fff5f5; padding: 15px; font-size: 13px; margin-bottom:12px;">
+                                    <strong>CRITICAL EMERGENCY ACTION:</strong> Scale up contact tracing to ≥5 contacts per confirmed case via Go.Data framework. Deploy field BDBV PCR laboratories to Bunia to bypass central logistics friction windows.
+                                </div>
+                                <div style="border-left: 4px solid var(--yellow); background: #fffdf0; padding: 15px; font-size: 13px; margin-bottom:12px;">
+                                    <strong>HUMANITARIAN INTERVENTION NOTICE:</strong> Negotiate operational humanitarian corridors for RRT teams with local armed factions using third-party intermediaries. Deploy immediate emergency PPE buffers to Rwampara and Mongbwalu.
+                                </div>
+                                <div style="border-left: 4px solid var(--green); background: #f0fdf4; padding: 15px; font-size: 13px;">
+                                    <strong>GHANA PORT HEALTH ADVISORY:</strong> Enforce strict traveler health declarations and screen entries at Kotoka International Airport (KIA) for passengers originating from East/Central African travel corridors.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="alerts" class="page"><div class="panel"><div class="panel-body">Alerts and Triage Center Centerline</div></div></div>
+                <div id="surveillance" class="page"><div class="panel"><div class="panel-body">Epidemiological Data Engines</div></div></div>
+                <div id="poe" class="page"><div class="panel"><div class="panel-body">Airport and Border Controls Systems</div></div></div>
+                <div id="lab" class="page"><div class="panel"><div class="panel-body">Lab Information Reference Systems</div></div></div>
+                <div id="case" class="page"><div class="panel"><div class="panel-body">Clinical Case Management Trackers</div></div></div>
+                <div id="ambulance" class="page"><div class="panel"><div class="panel-body">National Ambulance Dispatch Logistics</div></div></div>
+                <div id="risk" class="page"><div class="panel"><div class="panel-body">Public Risk Communications Coordination</div></div></div>
+                <div id="supply" class="page"><div class="panel"><div class="panel-body">Supply Chain and Logistics Tracker Matrix</div></div></div>
+                <div id="partners" class="page"><div class="panel"><div class="panel-body">Partner Coordination Infrastructure</div></div></div>
+                <div id="global" class="page"><div class="panel"><div class="panel-body">Global Event Monitoring Core</div></div></div>
+                <div id="events" class="page"><div class="panel"><div class="panel-body">Incident Tracking Master Log</div></div></div>
+                <div id="regions" class="page"><div class="panel"><div class="panel-body">Regional Performance Framework Matrix</div></div></div>
+                <div id="districts" class="page"><div class="panel"><div class="panel-body">District Surveillance Operations Center</div></div></div>
+                <div id="ims" class="page"><div class="panel"><div class="panel-body">Incident Management System Core Desk</div></div></div>
+            </div>
         </div>
-    """, unsafe_with_html=True)
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const dateStr = now.toLocaleString('en-GB').replace(',', '');
+            document.getElementById("time").innerText = dateStr;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        const alerts = [
+            "SEVERE ALERT: Bundibugyo Virus Disease Outbreak Active",
+            "PHEIC Declared by WHO Director-General under IHR 2005",
+            "KIA Port Health Screening activated for regional incoming flights",
+            "Cholera surveillance response sustained in Greater Accra"
+        ];
+        let alertIdx = 0;
+
+        function rotateAlert() {
+            const el = document.getElementById("statusText");
+            if(!el) return;
+            el.style.opacity = 0;
+            setTimeout(() => {
+                el.innerText = alerts[alertIdx];
+                el.style.opacity = 1;
+                alertIdx = (alertIdx + 1) % alerts.length;
+            }, 400);
+        }
+        setInterval(rotateAlert, 4500);
+
+        function showPage(pageId) {
+            document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+            const target = document.getElementById(pageId);
+            if (target) target.classList.add("active");
+
+            document.querySelectorAll(".sidebar button").forEach(b => {
+                b.classList.remove("active");
+                if (b.getAttribute('onclick').includes(`'${pageId}'`)) b.classList.add("active");
+            });
+
+            document.querySelectorAll(".tabs button").forEach(b => {
+                b.classList.remove("active");
+                if (b.getAttribute('onclick').includes(`'${pageId}'`)) b.classList.add("active");
+            });
+        }
+    </script>
+</body>
+</html>

@@ -14,7 +14,7 @@ import os
 # ====================================================
 st.set_page_config(
     page_title="GIPHEP — Ghana National PHEOC Outbreak Intelligence",
-    page_icon="🚨",
+    page_icon="⚡",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -34,22 +34,26 @@ st.markdown("""
 # ====================================================
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700;800&display=swap');
     
     :root {
-        --ghana-green: #006B3F;
-        --ghana-yellow: #FCD116;
-        --ghana-red: #CE1126;
-        --dark-bg: #0f1117;
-        --panel-bg: #1a1d2e;
-        --text-color: #e0e0e0;
-        --border-color: #2a2d3e;
+        --green: #006B3F;
+        --yellow: #FCD116;
+        --red: #CE1126;
+        --bg: #f4f7f6;
+        --sidebar-dark: #004d2e;
+        --text: #1f2937;
+        --border: #e5e7eb;
     }
     
     html, body, [data-testid="stAppViewContainer"] {
-        background-color: #0f1117 !important;
-        color: #e0e0e0 !important;
+        background-color: #f4f7f6 !important;
+        color: #1f2937 !important;
         font-family: 'Inter', sans-serif !important;
+    }
+
+    [data-testid="stSidebar"] {
+        background-color: #004d2e !important;
     }
     
     /* Ghana Color Striping */
@@ -67,7 +71,7 @@ st.markdown("""
 
     /* Custom Ticker Styling */
     .ticker-wrap {
-        background: #1a1d2e;
+        background: #fff;
         border-bottom: 2px solid #CE1126;
         padding: 10px 20px;
         border-radius: 6px;
@@ -85,30 +89,24 @@ st.markdown("""
         text-transform: uppercase;
         border-radius: 4px;
         letter-spacing: 0.5px;
-        animation: pulse 2s infinite;
     }
     .ticker-text {
-        font-size: 13.5px;
+        font-size: 14px;
         font-weight: 600;
-        color: #fff;
+        color: #333;
     }
 
     /* KPI Component Panels */
     .kpi-card-unified {
-        background: #1a1d2e;
-        border-radius: 10px;
-        padding: 16px;
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
         border-left: 4px solid #006B3F;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .kpi-card-unified:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     }
     .kpi-title {
         font-size: 11px;
-        color: #888;
+        color: #6b7280;
         text-transform: uppercase;
         font-weight: 700;
         letter-spacing: 0.5px;
@@ -116,12 +114,12 @@ st.markdown("""
     .kpi-value {
         font-size: 28px;
         font-weight: 800;
-        color: #fff;
+        color: #111827;
         margin-top: 4px;
         line-height: 1.1;
     }
-    .kpi-delta-up { color: #e74c3c; font-size: 12px; font-weight: 600; margin-top: 4px;}
-    .kpi-delta-down { color: #2ecc71; font-size: 12px; font-weight: 600; margin-top: 4px;}
+    .kpi-delta-up { color: #b91c1c; font-size: 12px; font-weight: 600; margin-top: 4px;}
+    .kpi-delta-down { color: #065f46; font-size: 12px; font-weight: 600; margin-top: 4px;}
     
     /* Outbreak Table System */
     .intelligence-table {
@@ -130,36 +128,37 @@ st.markdown("""
         margin-top: 10px;
     }
     .intelligence-table th {
-        background-color: #12141f !important;
-        color: #888 !important;
+        background-color: #fcfcfc !important;
+        color: #6b7280 !important;
         font-weight: 600 !important;
         text-transform: uppercase !important;
         font-size: 11px !important;
-        padding: 10px !important;
-        border-bottom: 1px solid #2a2d3e !important;
+        padding: 12px 10px !important;
+        border-bottom: 1px solid #eee !important;
     }
     .intelligence-table td {
-        padding: 10px !important;
-        border-bottom: 1px solid #1e2130 !important;
+        padding: 12px 10px !important;
+        border-bottom: 1px solid #f9f9f9 !important;
         font-size: 13px !important;
+        color: #1f2937 !important;
     }
 
     /* Badges Layout */
     .risk-badge {
-        padding: 3px 8px;
-        border-radius: 4px;
+        padding: 4px 8px;
+        border-radius: 6px;
         font-size: 10px;
         font-weight: 700;
         text-transform: uppercase;
     }
-    .rb-critical { background: #3d1111; color: #e74c3c; border: 1px solid #7d1f1f; }
-    .rb-high { background: #3d2800; color: #f39c12; border: 1px solid #7d5500; }
-    .rb-medium { background: #2d3000; color: #f1c40f; border: 1px solid #5d6000; }
-    .rb-active { background: #0d3d1f; color: #2ecc71; border: 1px solid #1a7d3f; }
+    .rb-critical { background: #fee2e2; color: #b91c1c; }
+    .rb-high { background: #ffedd5; color: #c2410c; }
+    .rb-medium { background: #ffedd5; color: #c2410c; }
+    .rb-active { background: #d1fae5; color: #065f46; }
     
     /* Timeline styling */
     .tl-container {
-        border-left: 2px solid #2a2d3e;
+        border-left: 2px solid #e5e7eb;
         padding-left: 15px;
         margin-left: 10px;
     }
@@ -179,11 +178,13 @@ st.markdown("""
     }
     .tl-node.alert::before { background: #CE1126; }
     .tl-node.info::before { background: #FCD116; }
-    
-    @keyframes pulse {
-        0% { opacity: 0.6; }
-        50% { opacity: 1; }
-        100% { opacity: 0.6; }
+
+    /* Custom Streamlit component overrides to match light theme text elements */
+    h3, h4, label, [data-testid="stMarkdownContainer"] p {
+        color: #1f2937 !important;
+    }
+    .stSelectbox div div div {
+        color: #1f2937 !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -284,28 +285,27 @@ def build_emergency_header_system():
     
     col_logo1, col_title, col_logo2 = st.columns([1, 6, 1])
     with col_logo1:
-        # Graceful fallback mechanisms for local image files
-        st.markdown("<h2 style='text-align:center;'>🇬🇭</h2>", unsafe_allow_html=True)
+        st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Coat_of_arms_of_Ghana.svg/1280px-Coat_of_arms_of_Ghana.svg.png", width=65)
     with col_title:
         st.markdown("""
-            <h2 style='color:#fff; margin:0; font-weight:800; font-size:24px; text-transform:uppercase; letter-spacing:0.5px;'>
+            <h2 style='color:#006B3F; margin:0; font-weight:800; font-size:26px; text-transform:none; letter-spacing:0.5px;'>
                 Ghana Integrated Public Health Emergency Platform (GIPHEP)
             </h2>
-            <div style='color:#888; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:1px;'>
-                National Outbreak Intelligence & Emergency Coordination Dashboard — Ghana National PHEOC
+            <div style='color:#64748b; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:1px;'>
+                National Outbreak Intelligence & Emergency Coordination Dashboard — Powered by Ghana PHEOC
             </div>
         """, unsafe_allow_html=True)
     with col_logo2:
-        st.markdown("<h2 style='text-align:center;'>🔬</h2>", unsafe_allow_html=True)
+        st.image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpuQVNB3Y2X4GTxYETRwhMrTLqRJX3Iz7BeQ&s", width=65)
         
     # National Event Real-Time Alerts Ticker
     st.markdown(f"""
         <div class="ticker-wrap">
-            <span class="ticker-badge">⚠️ PHEIC ACTIVE</span>
+            <span class="ticker-badge">PHEIC ACTIVE</span>
             <div class="ticker-text">
                 <strong>SEVERE ALERT:</strong> Cholera outbreak cluster expansion within Greater Accra | 
                 Meningitis threshold under control in Northern Region surveillance zones | 
-                System Live-Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+                System Live-Time: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -316,12 +316,12 @@ def build_emergency_header_system():
 def render_sidebar_controls_pipeline():
     with st.sidebar:
         st.markdown("""
-            <div style='background-color:#004d2e; padding:12px; border-radius:6px; text-align:center; margin-bottom:15px;'>
-                <strong style='color:#FCD116; font-size:12px; text-transform:uppercase;'>Powered by Ghana Health Service</strong>
+            <div style='background-color:#004d2e; padding:12px; border-radius:6px; text-align:center; margin-bottom:15px; border-bottom: 1px solid rgba(255,255,255,0.1);'>
+                <strong style='color:#FCD116; font-size:11px; text-transform:uppercase; letter-spacing:0.5px;'>Powered by Ghana Health Service</strong>
             </div>
         """, unsafe_allow_html=True)
         
-        st.markdown("### 🗺️ NAVIGATION SYSTEM")
+        st.markdown("<h3 style='color:#fff !important; font-size:14px; font-weight:700;'>NAVIGATION SYSTEM</h3>", unsafe_allow_html=True)
         modules = [
             "Dashboard Overview", "National Situation Room", "Surveillance Analytics",
             "Epidemic Intelligence", "Epicurve Analytics", "Laboratory Diagnostics", 
@@ -331,7 +331,7 @@ def render_sidebar_controls_pipeline():
         selected_module = st.selectbox("Select Operational View", modules)
         
         st.markdown("---")
-        st.markdown("### 📥 INGEST DATA STREAM")
+        st.markdown("<h3 style='color:#fff !important; font-size:14px; font-weight:700;'>INGEST DATA STREAM</h3>", unsafe_allow_html=True)
         uploaded_file = st.file_uploader("Upload Surveillance CSV/XLSX", type=["csv", "xlsx"])
         
         # Ingestion Router
@@ -346,7 +346,7 @@ def render_sidebar_controls_pipeline():
             base_df = generate_default_surveillance_data()
             
         st.markdown("---")
-        st.markdown("### 🔍 SURVEILLANCE TIER FILTERS")
+        st.markdown("<h3 style='color:#fff !important; font-size:14px; font-weight:700;'>SURVEILLANCE TIER FILTERS</h3>", unsafe_allow_html=True)
         
         outbreak_type = st.selectbox("Outbreak Pathogen Focus", ["All Pathogens", "Cholera", "Meningitis", "Lassa Fever", "Yellow Fever"])
         
@@ -360,7 +360,7 @@ def render_sidebar_controls_pipeline():
             filtered_df = base_df
             districts_list = ["All Districts"] + list(base_df["District"].unique())
             
-        selected_district = st.selectbox(" MMDA Sub-Filter", districts_list)
+        selected_district = st.selectbox("MMDA Sub-Filter", districts_list)
         
         # Apply filter slicing logic
         if selected_region != "All Regions":
@@ -369,9 +369,9 @@ def render_sidebar_controls_pipeline():
             base_df = base_df[base_df["District"] == selected_district]
             
         st.markdown("---")
-        st.markdown("### ⏱️ SYSTEM UTILITIES")
+        st.markdown("<h3 style='color:#fff !important; font-size:14px; font-weight:700;'>SYSTEM UTILITIES</h3>", unsafe_allow_html=True)
         st.toggle("EOC Auto-Refresh Mode (30s)", value=True)
-        st.selectbox("UI Theme Profile", ["Dark Intel-Core Hybrid", "Light Operational Core"])
+        st.selectbox("UI Theme Profile", ["Light Operational Core", "Dark Intel-Core Hybrid"])
         
         return selected_module, base_df
 
@@ -395,10 +395,10 @@ def calculate_and_render_kpis(df):
     kpi_cols = st.columns(6)
     
     metrics = [
-        {"title": "Total Line Records", "val": total_records, "delta": "▲ Baseline Ingested", "up": True},
+        {"title": "Total Line Records", "val": total_records, "delta": "Baseline Ingested", "up": True},
         {"title": "Confirmed Cases", "val": confirmed, "delta": "+14 New 24h", "up": True},
         {"title": "Active Isolation", "val": active, "delta": "-2 Discharges", "up": False},
-        {"title": "Total Mortalities", "val": deaths, "delta": "▲ Trigger High", "up": True},
+        {"title": "Total Mortalities", "val": deaths, "delta": "Trigger High", "up": True},
         {"title": "Crude CFR (%)", "val": f"{cfr:.1f}%", "delta": "WHO Threshold 1%", "up": True},
         {"title": "MMDAs Affected", "val": districts_affected, "delta": "Spread Tracking", "up": True}
     ]
@@ -420,7 +420,7 @@ def calculate_and_render_kpis(df):
 # ADVANCED EPIDEMIOLOGICAL GRAPHICS MODULARS
 # ====================================================
 def draw_advanced_epicurve_system(df):
-    st.markdown("### 📈 EPIDEMIC CURVE ANALYTICS (RECONSTRUCTED BINDINGS)")
+    st.markdown("### EPIDEMIC CURVE ANALYTICS (RECONSTRUCTED BINDINGS)")
     
     # Process grouping timelines
     ts_df = df.groupby(["Date", "Case Status"]).size().reset_index(name="Counts")
@@ -437,7 +437,7 @@ def draw_advanced_epicurve_system(df):
     # Cumulative overlays
     fig.add_trace(go.Bar(
         x=ts_pivot["Date"], y=ts_pivot["Suspected"],
-        name="Suspected Incident Load", marker_color="#f39c12", opacity=0.65
+        name="Suspected Incident Load", marker_color="#ffedd5", opacity=0.85
     ))
     fig.add_trace(go.Bar(
         x=ts_pivot["Date"], y=ts_pivot["Confirmed"],
@@ -449,19 +449,19 @@ def draw_advanced_epicurve_system(df):
     ))
     
     fig.update_layout(
-        template="plotly_dark",
-        plot_bgcolor="#1a1d2e",
-        paper_bgcolor="#1a1d2e",
+        template="plotly_white",
+        plot_bgcolor="#ffffff",
+        paper_bgcolor="#ffffff",
         margin=dict(l=20, r=20, t=20, b=20),
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
-        xaxis=dict(gridcolor="#2a2d3e"),
-        yaxis=dict(gridcolor="#2a2d3e")
+        xaxis=dict(gridcolor="#e5e7eb"),
+        yaxis=dict(gridcolor="#e5e7eb")
     )
     
     st.plotly_chart(fig, use_container_width=True)
 
 def draw_trajectory_scenarios(df):
-    st.markdown("### 🔮 OUTBREAK TRAJECTORY MODELING & Rt FORECASTS")
+    st.markdown("### OUTBREAK TRAJECTORY MODELING & Rt FORECASTS")
     
     # Calculate historical baseline values
     historical = df.groupby("Date").size().reset_index(name="Daily")
@@ -480,11 +480,11 @@ def draw_trajectory_scenarios(df):
     
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=future_dates, y=worst_case, name="Worst Case (Uncontrolled Exponential, R(t) > 2.5)", line=dict(color="#CE1126", dash="dash")))
-    fig.add_trace(go.Scatter(x=future_dates, y=moderate_case, name="Moderate Trend (Partial Interventions)", line=dict(color="#f39c12", dash="dot")))
-    fig.add_trace(go.Scatter(x=future_dates, y=optimistic_case, name="Optimistic Track (Full Containment)", line=dict(color="#2ecc71")))
+    fig.add_trace(go.Scatter(x=future_dates, y=moderate_case, name="Moderate Trend (Partial Interventions)", line=dict(color="#c2410c", dash="dot")))
+    fig.add_trace(go.Scatter(x=future_dates, y=optimistic_case, name="Optimistic Track (Full Containment)", line=dict(color="#065f46")))
     
     fig.update_layout(
-        template="plotly_dark", plot_bgcolor="#1a1d2e", paper_bgcolor="#1a1d2e",
+        template="plotly_white", plot_bgcolor="#ffffff", paper_bgcolor="#ffffff",
         margin=dict(l=20, r=20, t=20, b=20),
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
     )
@@ -502,13 +502,13 @@ def run_dashboard_router(module, df):
             draw_advanced_epicurve_system(df)
             
             # Geographic Map Pipeline Wrapper Placeholder
-            st.markdown("### 🗺️ GEOSPATIAL CLUSTER RADAR MAP")
-            m = folium.Map(location=[7.9465, -1.0232], zoom_start=7, tiles="CartoDB dark_matter")
+            st.markdown("### GEOSPATIAL CLUSTER RADAR MAP")
+            m = folium.Map(location=[7.9465, -1.0232], zoom_start=7, tiles="CartoDB positron")
             
             # Map dynamic coordinate plot arrays safely
             sample_coords = df.dropna(subset=["Latitude", "Longitude"]).head(40)
             for _, r in sample_coords.iterrows():
-                color = "#CE1126" if r["Case Status"] == "Confirmed" else "#f39c12"
+                color = "#CE1126" if r["Case Status"] == "Confirmed" else "#c2410c"
                 folium.CircleMarker(
                     location=[r["Latitude"], r["Longitude"]],
                     radius=6, color=color, fill=True,
@@ -518,42 +518,42 @@ def run_dashboard_router(module, df):
             st_folium(m, height=350, width=820, key="national_map_overview")
             
         with col_right:
-            st.markdown("### 🤖 ENGINE EPIDEMIOLOGICAL REMARKS")
+            st.markdown("### ENGINE EPIDEMIOLOGICAL REMARKS")
             # Rule-base dynamic string engine evaluation
             confirmed_count = len(df[df["Case Status"] == "Confirmed"])
             accra_cases = len(df[(df["Region"] == "Greater Accra") & (df["Case Status"] == "Confirmed")])
             pct_accra = (accra_cases / max(confirmed_count, 1)) * 100
             
-            st.info(f"💡 **Spatial Intensity**: Greater Accra contributes {pct_accra:.1f}% of national confirmed cases.")
+            st.info(f"Spatial Intensity: Greater Accra contributes {pct_accra:.1f}% of national confirmed cases.")
             if pct_accra > 30:
-                st.warning("⚠️ **Alert**: Regional concentration exceeds containment variance profiles inside southern transmission vectors.")
-            st.error("🚨 **Threshold Trigger**: Incident rate vectors inside 3 specific MMDAs match structural geometric expansion indices.")
+                st.warning("Alert: Regional concentration exceeds containment variance profiles inside southern transmission vectors.")
+            st.error("Threshold Trigger: Incident rate vectors inside 3 specific MMDAs match structural geometric expansion indices.")
             
-            st.markdown("### 📑 INCIDENT MILESTONES & TIMELINE PANELS")
-            st.markdown("""
+            st.markdown("### INCIDENT MILESTONES & TIMELINE PANELS")
+            st.markdown(f"""
                 <div class="tl-container">
                     <div class="tl-node alert">
-                        <strong>2026-05-19 (Today)</strong><br>
-                        <span style="font-size:12px; color:#aaa;">PHEOC activates strategic regional multi-agency incident system response command.</span>
+                        <strong>{datetime.now().strftime('%Y-%m-%d')} (Today)</strong><br>
+                        <span style="font-size:12px; color:#6b7280;">PHEOC activates strategic regional multi-agency incident system response command.</span>
                     </div>
                     <div class="tl-node info">
                         <strong>2026-05-15</strong><br>
-                        <span style="font-size:12px; color:#aaa;">National Public Reference Lab expands testing pipelines down into district medical vectors.</span>
+                        <span style="font-size:12px; color:#6b7280;">National Public Reference Lab expands testing pipelines down into district medical vectors.</span>
                     </div>
                     <div class="tl-node">
                         <strong>2026-05-10</strong><br>
-                        <span style="font-size:12px; color:#aaa;">Index clustering vectors flagged inside cross-border processing networks.</span>
+                        <span style="font-size:12px; color:#6b7280;">Index clustering vectors flagged inside cross-border processing networks.</span>
                     </div>
                 </div>
             """, unsafe_allow_html=True)
             
-            st.markdown("### 📊 CLASSIFICATION DISTRIBUTIONS")
-            fig_pie = px.pie(df, names="Case Status", color_discrete_sequence=["#CE1126", "#f39c12", "#8e44ad"])
-            fig_pie.update_layout(template="plotly_dark", plot_bgcolor="#1a1d2e", paper_bgcolor="#1a1d2e", margin=dict(l=10,r=10,t=10,b=10))
+            st.markdown("### CLASSIFICATION DISTRIBUTIONS")
+            fig_pie = px.pie(df, names="Case Status", color_discrete_sequence=["#CE1126", "#ffedd5", "#e5e7eb"])
+            fig_pie.update_layout(template="plotly_white", plot_bgcolor="#ffffff", paper_bgcolor="#ffffff", margin=dict(l=10,r=10,t=10,b=10))
             st.plotly_chart(fig_pie, use_container_width=True)
 
     elif module == "National Situation Room":
-        st.markdown("### 🏛️ COMMAND CENTER COORDINATION SITREP")
+        st.markdown("### COMMAND CENTER COORDINATION SITREP")
         col_s1, col_s2 = st.columns(2)
         with col_s1:
             st.markdown("#### Operational Capacity Matrix")
@@ -565,14 +565,14 @@ def run_dashboard_router(module, df):
         with col_s2:
             st.markdown("#### Operational Recommendations Engine")
             st.markdown("""
-                - 🚀 **Deploy Surge Teams**: Dispatch secondary epidemiological monitoring assets immediately to active vector zones.
-                - 🔬 **Scale Lab Logistics**: Accelerate supply chains for chemical assay components to clear reference laboratory delays.
-                - 📦 **Pre-position IPC Logistics**: Shift critical material packages down into community distribution endpoints.
+                - Deploy Surge Teams: Dispatch secondary epidemiological monitoring assets immediately to active vector zones.
+                - Scale Lab Logistics: Accelerate supply chains for chemical assay components to clear reference laboratory delays.
+                - Pre-position IPC Logistics: Shift critical material packages down into community distribution endpoints.
             """)
 
     elif module == "Surveillance Analytics":
         draw_advanced_epicurve_system(df)
-        st.markdown("### 🗂️ LINE-LIST EXCERPT DATA STREAM")
+        st.markdown("### LINE-LIST EXCERPT DATA STREAM")
         st.dataframe(df.head(100), use_container_width=True)
 
     elif module == "Epidemic Intelligence":
@@ -582,26 +582,26 @@ def run_dashboard_router(module, df):
         with col_ei2:
             st.markdown("### Transmission Projections Analytics")
             st.write("Dynamic simulation parameters utilize direct continuous R(t) computations mapping rolling sequential interval parameters against regional data records.")
-            st.metric("Estimated Baseline R(t)", "1.84", "▲ 0.22", delta_color="inverse")
+            st.metric("Estimated Baseline R(t)", "1.84", "0.22", delta_color="inverse")
             st.metric("Case Doubling Vector Time", "4.2 Days", "-0.8 Days", delta_color="inverse")
 
     elif module == "Epicurve Analytics":
         draw_advanced_epicurve_system(df)
 
     elif module == "Laboratory Diagnostics":
-        st.markdown("### 🔬 LABORATORY CAPACITY & POSITIVITY METRICS")
+        st.markdown("### LABORATORY CAPACITY & POSITIVITY METRICS")
         col_l1, col_l2 = st.columns([2, 1])
         with col_l1:
             lab_counts = df.groupby(["Region", "Lab Result"]).size().reset_index(name="Samples")
             fig_lab = px.bar(lab_counts, x="Region", y="Samples", color="Lab Result", barmode="group", color_discrete_map={"Positive": "#CE1126", "Negative": "#006B3F", "Pending": "#FCD116"})
-            fig_lab.update_layout(template="plotly_dark", plot_bgcolor="#1a1d2e", paper_bgcolor="#1a1d2e")
+            fig_lab.update_layout(template="plotly_white", plot_bgcolor="#ffffff", paper_bgcolor="#ffffff")
             st.plotly_chart(fig_lab, use_container_width=True)
         with col_l2:
             st.metric("Total Lab Ingest Volume", len(df), "Sustained Operational Capacity")
-            st.metric("Pending Result Backlog", len(df[df["Lab Result"] == "Pending"]), "⚠️ Action Required")
+            st.metric("Pending Result Backlog", len(df[df["Lab Result"] == "Pending"]), "Action Required")
 
     elif module == "Regional Risk Stratification":
-        st.markdown("### 🗺️ ADMINISTRATIVE AREA RISK INTENSITY STRATIFICATION MATRIX")
+        st.markdown("### ADMINISTRATIVE AREA RISK INTENSITY STRATIFICATION MATRIX")
         reg_risk = df.groupby("Region").agg(
             Total_Load=("Case Status", "count"),
             Confirmed_Count=("Case Status", lambda x: (x == "Confirmed").sum()),
@@ -614,24 +614,24 @@ def run_dashboard_router(module, df):
         st.dataframe(reg_risk.sort_values(by="Confirmed_Count", ascending=False), use_container_width=True)
 
     elif module == "District Hotspots":
-        st.markdown("### 📍 TOP-RANKED MMDA SUB-DISTRICT SURVEILLANCE RISK HEAVY VECTORS")
+        st.markdown("### TOP-RANKED MMDA SUB-DISTRICT SURVEILLANCE RISK HEAVY VECTORS")
         dist_risk = df.groupby(["Region", "District"]).size().reset_index(name="Incident Count").sort_values(by="Incident Count", ascending=False)
         fig_dist = px.bar(dist_risk.head(20), x="District", y="Incident Count", color="Region", title="Top 20 Outbreak Active Districts Vector Counts")
-        fig_dist.update_layout(template="plotly_dark", plot_bgcolor="#1a1d2e", paper_bgcolor="#1a1d2e")
+        fig_dist.update_layout(template="plotly_white", plot_bgcolor="#ffffff", paper_bgcolor="#ffffff")
         st.plotly_chart(fig_dist, use_container_width=True)
 
     elif module == "Forecasting & Modeling":
         draw_trajectory_scenarios(df)
 
     elif module == "Decision Support Engine":
-        st.markdown("### 🧠 AUTOMATED ALGORITHM MATRIX SUPPORT INTERVENTIONS")
+        st.markdown("### AUTOMATED ALGORITHM MATRIX SUPPORT INTERVENTIONS")
         st.write("Dynamic parameters process current line loads to recommend active execution profiles matching WHO benchmarks.")
-        st.checkbox("✅ Trigger Level 3 EOC Regional Mobilization", value=True)
-        st.checkbox("✅ Pre-position Interventional Assay Kits inside Border Gateways", value=True)
-        st.checkbox("❌ Execute Lockdown Measures (Not Justified by Current Ingestion Curve Vector Trends)", value=False)
+        st.checkbox("Trigger Level 3 EOC Regional Mobilization", value=True)
+        st.checkbox("Pre-position Interventional Assay Kits inside Border Gateways", value=True)
+        st.checkbox("Execute Lockdown Measures (Not Justified by Current Ingestion Curve Vector Trends)", value=False)
 
     elif module == "Data Explorer":
-        st.markdown("### 📥 COMPREHENSIVE INTELLIGENCE EXPORT PROTOCOLS")
+        st.markdown("### COMPREHENSIVE INTELLIGENCE EXPORT PROTOCOLS")
         st.dataframe(df, use_container_width=True)
         st.download_button("Download Processed Cleaned Dataset CSV", data=df.to_csv(index=False), file_name="GIPHEP_Cleaned_Surveillance_Data.csv", mime="text/csv")
 
